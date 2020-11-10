@@ -1,0 +1,66 @@
+<div class="container">
+    <!-- El contenedor principal -->
+    <br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <!-- barra de navegacion -->
+        <a class="navbar-brand" href="#">
+            <img src="assets/images/MiLogo.png" width="120px" height="auto" class="d-inline-block align-top" alt=""> Mi Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['/inicio']">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" *ngFor="let category of categories">
+                    <a class="nav-link" [routerLink]="['categoria', category.id]">{{category.name}}</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav navbar-right" *ngIf="!identity">
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['/login']">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/registro']">Registro</a>
+                </li>
+            </ul>
+
+
+            <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
+                <li *ngIf="identity && identity.image" class=" nav-item">
+                    <div class="avatar_mask">
+                        <img src="{{url+'user/avatar/'+ identity.image}}" alt="Avatar" class="avatar_nav">
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       {{ identity.name + ' ' + identity.surname}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" [routerLink]="['/crear-entrada']">Crear Entrada</a>
+                        <a class="dropdown-item" [routerLink]="['/crear-categoria']">Crear Categoria</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" [routerLink]="['/perfil', identity.sub]">Mi perfil</a>
+                        <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
+                        <a class="dropdown-item" [routerLink]="['/logout/1']">Salir</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Cerrar barra de navegacion -->
+
+    <!-- CONTENIDO -->
+    <router-outlet></router-outlet>
+
+    <footer>
+        <hr> Footer &copy; <a class="" href="#"> MiBlog.com</a> Diseñada por Jose Luis
+        <hr>
+    </footer>
+
+</div>
+<!-- Cerrar contenedor principal -->
